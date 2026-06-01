@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aguas con tu Sed | Sabores Naturales</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        .beneficios-container, .beneficio-item, i, span {
+            font-display: swap;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        :root {
+            --rojo-sandia: #FF4A5A;
+            --amarillo-mango: #FFB020;
+            --rosa-fresa: #FF7597;
+            --verde-menta: #2ECC71; /* Activado para denotar frescura y salud */
+            --blanco-puro: #FFFFFF; /* UNIFICADO: Reemplaza al blanco crema para máxima compatibilidad con fotos */
+            --texto-oscuro: #4A4A4A; /* Cambio de #2C2C2C a gris carbón suave */
+            --gris-claro: #F5F5F0;
+            --crema-beneficios: #FFFDF2; /* Tono sutil reservado únicamente para separar secciones */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--blanco-puro);
+            color: var(--texto-oscuro);
+            line-height: 1.6;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .barra-promo {
+            background-color: var(--rojo-sandia);
+            color: white;
+            text-align: center;
+            padding: 8px 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1001;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        header {
+            background-color: #ffffff;
+            position: fixed;
+            top: 36px; 
+            left: 0;
+            width: 100%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--rojo-sandia);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--amarillo-mango);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--texto-oscuro);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--verde-menta); /* Integración de Verde Menta en Nav */
+        }
+
+        /* --- MENÚ DESPLEGABLE DE USUARIO --- */
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .btn-usuario-nav {
+            background-color: var(--gris-claro);
+            border: none;
+            color: var(--texto-oscuro);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        .btn-usuario-nav:hover {
+            background-color: var(--verde-menta); /* Integración de Verde Menta */
+            color: white;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #ffffff;
+            min-width: 180px;
+            box-shadow: 0px 8px 25px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            z-index: 1002;
+            margin-top: 8px;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .dropdown-content a, .dropdown-content button {
+            color: var(--texto-oscuro);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            width: 100%;
+            background: none;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .dropdown-content a:hover, .dropdown-content button:hover {
+            background-color: var(--gris-claro);
+            color: var(--rojo-sandia);
+        }
+
+        .show-dropdown {
+            display: block;
+        }
+
+        /* --- SECCIÓN INICIO (CON FOTO + CAPA PROTECTORA LUZ DE DÍA) --- */
+        #inicio {
+            height: 85vh;
+            background-image: url('https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&q=80&w=1920');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+            margin-top: 80px; 
+            position: relative;
+        }
+
+        /* Filtro protector claro para emular luz de día y facilitar lectura */
+        #inicio::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.6); /* Ajustado a blanco puro translúcido */
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            max-width: 800px;
+            background: none; /* Cuadro oscuro eliminado por completo */
+            box-shadow: none; 
+        }
+
+        .hero-content h1 {
+            font-size: 3.2rem;
+            color: var(--texto-oscuro); 
+            margin-bottom: 20px;
+            font-weight: 800;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8); /* Ligero relieve para legibilidad perfecta */
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 30px;
+            font-weight: 600;
+            color: var(--texto-oscuro); 
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .btn-primario {
+            background-color: var(--verde-menta); /* Modificado a verde menta refrescante */
+            color: white;
+            padding: 14px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .btn-primario:hover {
+            background-color: #27ae60;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
+        }
+
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .titulo-seccion {
+            text-align: center;
+            font-size: 2.3rem;
+            margin-bottom: 50px;
+            color: var(--texto-oscuro);
+            position: relative;
+            font-weight: 800;
+        }
+
+        .titulo-seccion::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 5px;
+            background-color: var(--amarillo-mango);
+            margin: 12px auto 0;
+            border-radius: 10px;
+        }
+
+        .sabores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .sabor-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03); /* Sombra optimizada sobre el fondo blanco */
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .sabor-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(255, 74, 90, 0.08);
+        }
+
+        .sabor-img-container {
+            position: relative;
+            height: 240px;
+            width: 100%;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .sabor-img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .sabor-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(46, 204, 113, 0.4); /* Overlay modificado a verde menta suave */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .texto-ordenar {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            background-color: var(--rojo-sandia);
+            padding: 10px 24px;
+            border-radius: 25px;
+            transform: translateY(15px);
+            transition: transform 0.4s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .sabor-card:hover .sabor-img {
+            transform: scale(1.05);
+        }
+
+        .sabor-card:hover .sabor-overlay {
+            opacity: 1;
+        }
+
+        .sabor-card:hover .texto-ordenar {
+            transform: translateY(0);
+        }
+
+        .sabor-info {
+            padding: 24px;
+        }
+
+        .sabor-info h3 {
+            margin-bottom: 10px;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--texto-oscuro);
+        }
+
+        .sabor-info p {
+            color: #777;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        #beneficios {
+            background-color: var(--crema-beneficios); /* Delimitador visual exclusivo, sutil e intencional */
+            max-width: 100%;
+        }
+
+        .beneficios-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .beneficio-item {
+            text-align: center;
+            padding: 35px 25px;
+            border-radius: 20px;
+            background-color: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.01);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+        }
+
+        .beneficio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(255, 176, 32, 0.12);
+        }
+
+        .beneficio-icono {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+        
+        .beneficio-item:hover .beneficio-icono {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        .contacto-flex {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 40px;
+        }
+
+        .mapa-container iframe {
+            width: 100%;
+            height: 350px;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+
+        .form-contacto {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .form-contacto h3 {
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .form-grupo {
+            margin-bottom: 20px;
+        }
+
+        .form-grupo label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-grupo input, .form-grupo textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--gris-claro);
+            border-radius: 10px;
+            font-size: 1rem;
+            color: var(--texto-oscuro);
+            transition: all 0.3s;
+            background-color: var(--blanco-puro);
+        }
+
+        .form-grupo input:focus, .form-grupo textarea:focus {
+            outline: none;
+            border-color: var(--verde-menta);
+            background-color: white;
+        }
+
+        /* --- FOOTER ALEGRE MODIFICADO --- */
+        footer {
+            background-color: var(--rosa-fresa); /* Modificado de fondo negro a Rosa Fresa */
+            color: white;
+            text-align: center;
+            padding: 50px 20px 30px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .redes-sociales {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .red-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 600;
+            transition: transform 0.3s;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 18px;
+            border-radius: 20px;
+        }
+
+        .red-item i {
+            font-size: 1.4rem;
+        }
+
+        .red-item:hover { 
+            transform: scale(1.05); 
+            background: rgba(255,255,255,0.25);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 20px;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu { display: none; } 
+            .barra-promo { font-size: 0.75rem; padding: 6px; }
+            header { top: 28px; }
+            #inicio { margin-top: 60px; height: auto; padding: 60px 20px; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .contacto-flex { grid-template-columns: 1fr; }
+        }
+
+        /* --- ESTILOS DE LA VENTANA EMERGENTE (MODAL REFORMADO) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(74, 74, 74, 0.4);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; 
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            width: 92%;
+            max-width: 440px;
+            padding: 35px 30px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            text-align: center;
+            animation: entradaModal 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+        }
+
+        @keyframes entradaModal {
+            from { transform: translateY(-40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header h2 {
+            font-size: 1.8rem;
+            color: var(--rojo-sandia);
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        .modal-header h2 span { color: var(--amarillo-mango); }
+
+        .modal-tabs {
+            display: flex;
+            background-color: var(--gris-claro);
+            padding: 5px;
+            border-radius: 30px;
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px 15px;
+            background: none;
+            border: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            color: #777;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: white;
+            background-color: var(--rojo-sandia);
+            box-shadow: 0 4px 10px rgba(255, 74, 90, 0.2);
+        }
+
+        .form-compartido {
+            display: none;
+        }
+
+        .form-compartido.active {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .modal-input-grupo {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .modal-input-grupo label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--texto-oscuro);
+        }
+
+        .modal-input-grupo input {
+            padding: 12px 15px;
+            border: 2px solid var(--gris-claro);
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+            background-color: var(--blanco-puro);
+        }
+
+        .modal-input-grupo input:focus {
+            border-color: var(--verde-menta);
+            background-color: white;
+        }
+
+        .btn-modal-registrar {
+            background-color: var(--verde-menta); /* Botón del modal unificado a verde */
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.2);
+        }
+
+        .btn-modal-registrar:hover {
+            background-color: #27ae60;
+        }
+
+        .modal-separador {
+            margin: 20px 0;
+            position: relative;
+        }
+        .modal-separador::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--gris-claro);
+            z-index: 1;
+        }
+        .modal-separador span {
+            background: white;
+            padding: 0 15px;
+            color: #aaa;
+            font-size: 0.8rem;
+            position: relative;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-modal-invitado {
+            background-color: transparent;
+            color: var(--texto-oscuro);
+            border: 2px solid var(--gris-claro);
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-modal-invitado:hover {
+            background-color: var(--gris-claro);
+            border-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+
+   <div id="modal-bienvenida" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>¡Bienvenido a <br><span>Aguas con tu Sed</span>!</h2>
+            </div>
+
+            <div class="modal-tabs">
+                <button class="tab-btn active" onclick="cambiarPestana('registro')">Crear Cuenta</button>
+                <button class="tab-btn" onclick="cambiarPestana('login')">Iniciar Sesión</button>
+            </div>
+            
+            <form id="form-registro-modal" class="form-compartido active">
+                <p style="color: #666; font-size: 0.95rem; margin-bottom: 20px; line-height: 1.4;">
+                    ¡Súmate a la familia de Aguas con tu Sed! Solo te tomará un minuto registrarte
+                    para empezar a disfrutar de fruta de verdad.
+                </p>
+
+                <div class="modal-input-grupo">
+                    <label for="modal-nombre"><i class="fa-solid fa-user"></i> Nombre Completo</label>
+                    <input type="text" id="modal-nombre" placeholder="Ej. Juan Pérez" required>
+                </div>
+                <div class="modal-input-grupo">
+                    <label for="modal-telefono"><i class="fa-solid fa-phone"></i> Teléfono (WhatsApp)</label>
+                    <input type="tel" id="modal-telefono" placeholder="Ej. 6674123456" required>
+                </div>
+                <button type="submit" class="btn-modal-registrar">Registrarme y Entrar</button>
+            </form>
+
+            <form id="form-login-modal" class="form-compartido">
+                <p style="color: #666; font-size: 0.95rem; margin-bottom: 20px; line-height: 1.4;">
+                    ¿Ya tienes sed? Pon tu teléfono aquí abajo para entrar a tu cuenta y armar tu combinación de hoy.
+                </p>
+
+                <div class="modal-input-grupo">
+                    <label for="login-telefono"><i class="fa-solid fa-phone"></i> Introduce tu Teléfono</label>
+                    <input type="tel" id="login-telefono" placeholder="Ej. 6674123456" required>
+                </div>
+                <button type="submit" class="btn-modal-registrar" style="background-color: var(--amarillo-mango); box-shadow: 0 4px 12px rgba(255, 176, 32, 0.2);">Ingresar</button>
+            </form>
+
+            <div class="modal-separador">
+                <span>ó bien</span>
+            </div>
+
+            <button class="btn-modal-invitado" onclick="entrarComoInvitado()">
+                <i class="fa-solid fa-eye"></i> Continuar como Invitado
+            </button>
+        </div>
+    </div>
+
+    <div class="barra-promo">
+        SOLO POR PROMOCIÓN, PIDE ANTES DE LAS 5:00 PM Y EL ENVÍO VA POR NUESTRA CUENTA.
+    </div>
+
+    <header>
+        <div class="navbar">
+            <a href="index.html" class="logo">Aguas con tu <span>Sed</span></a>
+            <ul class="nav-menu">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#sabores">Sabores</a></li>
+                <li><a href="#beneficios">Beneficios</a></li>
+                <li><a href="#ubicanos">Ubícanos</a></li>
+                <li><a href="#contacto">Contáctanos</a></li>
+                <li><a href="nosotros.html">Quiénes Somos</a></li>
+                <li>
+                    <div class="user-dropdown">
+                        <button class="btn-usuario-nav" id="btn-usuario-menu" onclick="toggleDropdown(event)">
+                            <i class="fa-solid fa-basket-shopping"></i> 
+                            <span id="texto-usuario-nav">Carrito</span>
+                            <i class="fa-solid fa-caret-down" id="flecha-dropdown" style="display:none; font-size:0.8rem;"></i>
+                        </button>
+                        <div class="dropdown-content" id="dropdown-usuario">
+                            <a href="carrito.html"><i class="fa-solid fa-cart-shopping"></i> Ver Carrito</a>
+                            <button onclick="cerrarSesion()"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <section id="inicio">
+        <div class="hero-content">
+            <h1>Fruta de Verdad para una Frescura Real</h1>
+            <p>Adiós a los polvos artificiales. Es hora de consentir a tu antojo con pulpa 100% natural.</p>
+            <a href="carta.html" class="btn-primario">Ver la Carta</a>
+        </div>
+    </section>
+
+    <section id="sabores">
+        <h2 class="titulo-seccion">Nuestros Sabores</h2>
+        <div class="sabores-grid">
+            
+            <a href="https://wa.me/526674XXXXXX?text=%21Hola%2C%20me%20interesa%20el%20sabor%20Lim%C3%B3n%20con%20Menta" target="_blank" class="sabor-card">
+                <div class="sabor-img-container">
+                    <img src="https://www.spiceandcolour.com/wp-content/uploads/2020/06/refresco-de-pepino-4_0.jpg" alt="Limon con menta" class="sabor-img">
+                    <div class="sabor-overlay">
+                        <span class="texto-ordenar">Ordenar</span>
+                    </div>
+                </div>
+                <div class="sabor-info">
+                    <h3>Limón con Menta</h3>
+                    <p>No hay calor que se resista a una buena agua de limón bien fría. Hecha al momento con limones 100% naturales, tiene ese toque ácido y vibrante que te devuelve la vida en cada trago. Servida con mucho hielo para asegurar una frescura total. ¿Ya pediste la tuya?</p>
+                </div>
+            </a>
+
+            <a href="https://wa.me/526674XXXXXX?text=%21Hola%2C%20me%20interesa%20el%20sabor%20Fresa%20Intensa" target="_blank" class="sabor-card">
+                <div class="sabor-img-container">
+                    <img src="https://7diasdesabor.com/wp-content/uploads/2022/05/limonada-de-fresas-congeladas.jpg" alt="Fresa con menta" class="sabor-img">
+                    <div class="sabor-overlay">
+                        <span class="texto-ordenar">Ordenar</span>
+                    </div>
+                </div>
+                <div class="sabor-info">
+                    <h3>Fresa Intensa</h3>
+                    <p>Deliciosa y refrescante bebida artesanal elaborada con fresas maduras seleccionadas, agua purificada y un toque perfecto de dulzura. El equilibrio ideal entre madurez, acidez y frescura para acompañar cualquier platillo.</p>
+                </div>
+            </a>
+
+            <a href="https://wa.me/526674XXXXXX?text=%21Hola%2C%20me%20interesa%20el%20sabor%20Lim%C3%B3n%20con%20Ch%C3%ADa" target="_blank" class="sabor-card">
+                <div class="sabor-img-container">
+                    <img src="https://cdn7.kiwilimon.com/recetaimagen/12288/640x426/24962.jpg.webp" alt="Limón con chía" class="sabor-img">
+                    <div class="sabor-overlay">
+                        <span class="texto-ordenar">Ordenar</span>
+                    </div>
+                </div>
+                <div class="sabor-info">
+                    <h3>Limón con Chía</h3>
+                    <p>"Llevamos lo clásico al siguiente nivel. Pulpa de limón natural y semillas de chía seleccionadas que crean una consistencia perfecta y ultra refrescante. Sin jarabes artificiales, sin rodeos: solo el poder de la naturaleza sirviéndose ridículamente frío para terminar con tu sed de un solo golpe."</p>
+                </div>
+            </a>
+
+            <a href="https://wa.me/526674XXXXXX?text=%21Hola%2C%20me%20interesa%20el%20sabor%20Tamarindo" target="_blank" class="sabor-card">
+                <div class="sabor-img-container">
+                    <img src="https://estaticosgn-cdn.deia.eus/clip/7d4c33c8-2179-468b-aab0-75b9764d84e0_16-9-discover-aspect-ratio_default_0.jpg" alt="Tamarindo" class="sabor-img">
+                    <div class="sabor-overlay">
+                        <span class="texto-ordenar">Ordenar</span>
+                    </div>
+                </div>
+                <div class="sabor-info">
+                    <h3>Tamarindo</h3>
+                    <p>Bebida artesanal elaborada con pulpa de tamarindo 100% natural, hervida y colada pacientemente en casa. Con el balance perfecto entre su característica acidez cítrica y un toque sutil de dulzura. Intensa, refrescante y con mucho cuerpo.</p>
+                </div>
+            </a>
+
+            <a href="https://wa.me/526674XXXXXX?text=%21Hola%2C%20me%20interesa%20el%20sabor%20Mango" target="_blank" class="sabor-card">
+                <div class="sabor-img-container">
+                    <img src="https://laredhispana.org/wp-content/uploads/2023/07/receta-agua-fresca-de-mango.jpg" alt="Mango" class="sabor-img">
+                    <div class="sabor-overlay">
+                        <span class="texto-ordenar">Ordenar</span>
+                    </div>
+                </div>
+                <div class="sabor-info">
+                    <h3>Mango</h3>
+                    <p>Agua hecha con la pulpa de los mangos más dulces y jugosos de la temporada, seleccionados en su punto exacto de maduración. Sin jarabes, sabor denso, real y refrescante de la fruta de verdad.</p>
+                </div>
+            </a>
+
+            <a href="https://wa.me/526674XXXXXX?text=%21Hola%2C%20me%20interesa%20el%20sabor%20Horchata" target="_blank" class="sabor-card">
+                <div class="sabor-img-container">
+                    <img src="https://media.gq.com.mx/photos/673208b90bd4a888d68a1092/master/w_1920,c_limit/Horchata.jpg" alt="Horchata" class="sabor-img">
+                    <div class="sabor-overlay">
+                        <span class="texto-ordenar">Ordenar</span>
+                    </div>
+                </div>
+                <div class="sabor-info">
+                    <h3>Horchata</h3>
+                    <p>Remojamos el arroz pacientemente con rajitas de canela seleccionada, fusionándolo con un toque cremoso que respeta la receta de siempre. Una textura tersa y un balance perfecto que reconforta desde el primer sorbo. Lo clásico, llevado a su máxima expresión.</p>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <section id="beneficios">
+        <h2 class="titulo-seccion">¿Por qué elegirnos?</h2>
+        <div class="beneficios-container">
+            <div class="beneficio-item">
+                <div class="beneficio-icono">💧</div>
+                <h3>Agua 100% Purificada</h3>
+                <p>En Aguas con tu sed no usamos agua del grifo ni de dudosa procedencia. Todas nuestras bebidas se preparan exclusivamente con agua purificada e hielo de grado alimenticio. Disfruta de todo el sabor de la fruta con la total tranquilidad de que estás cuidando a tu familia.</p>
+            </div>
+
+            <div class="beneficio-item">
+                <div class="beneficio-icono">🍯</div>
+                <h3>Sin Químicos</h3>
+                <p>"Garantizamos la temperatura perfecta en cada vaso: súper heladas, con el hielo exacto para que nunca se rebaje el sabor natural."</p>
+            </div>
+
+            <div class="beneficio-item">
+                <div class="beneficio-icono">🍋</div>
+                <h3>Fruta 100% real</h3>
+                <p>Nuestras aguas no solo te quitan la sed, sino que te nutren y saben exactamente a lo que tienen que saber: a fruta de temporada, cero jarabes artificiales.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="ubicanos">
+        <h2 class="titulo-seccion">Encuéntranos y Contáctanos</h2>
+        <div class="contacto-flex">
+            <div class="mapa-container">
+                <h3>Nuestra Matriz</h3>
+                <p style="margin-bottom: 15px; color:#666;">Mercado Central, Local 14, Ciudad de México.</p>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.661609146162!2d-99.141200!3d19.427000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDI1JzM3LjIiTiA5OcKwMDgnMjguMyJX!5e0!3m2!1ses!2smx!4v1625000000000!5m2!1ses!2smx" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+
+            <div id="contacto" class="form-contacto">
+                <h3>¿Tienes un evento? ¡Escríbenos!</h3>
+                <form action="#" method="POST" onsubmit="event.preventDefault(); alert('¡Mensaje enviado con éxito! Nos comunicaremos contigo pronto.');">
+                    <div class="form-grupo">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" placeholder="Tu nombre" required>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="correo">Correo Electrónico</label>
+                        <input type="email" id="correo" placeholder="tu@correo.com" required>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="mensaje">Mensaje o Pedido</label>
+                        <textarea id="mensaje" rows="4" placeholder="¿Qué sabores te gustaría cotizar?" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primario" style="width: 100%; border-radius: 10px;">Enviar Mensaje</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="redes-sociales">
+                <a href="https://wa.me/526674XXXXXX" class="red-item" target="_blank">
+                    <i class="fab fa-whatsapp"></i> 6674xxxxxx
+                </a>
+                <a href="https://instagram.com/mageed.aguascontused" class="red-item" target="_blank">
+                    <i class="fab fa-instagram"></i> @mageed.aguascontused
+                </a>
+                <a href="https://facebook.com/mageed.aguascontused" class="red-item" target="_blank">
+                    <i class="fab fa-facebook-f"></i> @mageed.aguascontused
+                </a>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2026 Aguas con tu Sed. Todos los derechos reservados</p>
+                <p>Refresca tu mundo con el sabor 100% natural de la fruta real.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // LÓGICA DE PESTAÑAS EN EL MODAL
+        function cambiarPestana(tipo) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const formRegistro = document.getElementById('form-registro-modal');
+            const formLogin = document.getElementById('form-login-modal');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            if (tipo === 'registro') {
+                tabs[0].classList.add('active');
+                formRegistro.classList.add('active');
+                formLogin.classList.remove('active');
+            } else {
+                tabs[1].classList.add('active');
+                formLogin.classList.add('active');
+                formRegistro.classList.remove('active');
+            }
+        }
+
+        // LÓGICA DEL MENÚ DESPLEGABLE (DROPDOWN)
+        function toggleDropdown(event) {
+            if (localStorage.getItem('cliente_nombre')) {
+                event.stopPropagation();
+                document.getElementById("dropdown-usuario").classList.toggle("show-dropdown");
+            } else {
+                window.location.href = "carrito.html";
+            }
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.closest('.btn-usuario-nav')) {
+                const dropdowns = document.getElementsByClassName("dropdown-content");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    let openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show-dropdown')) {
+                        openDropdown.classList.remove('show-dropdown');
+                    }
+                }
+            }
+        }
+
+        // Cerrar sesión
+        function cerrarSesion() {
+            localStorage.removeItem('cliente_nombre');
+            localStorage.removeItem('cliente_telefono');
+            alert("Has cerrado sesión.");
+            location.reload();
+        }
+
+        // Función para cambiar el texto "Carrito" por el nombre del usuario
+        function actualizarNombreNav() {
+            const nombreGuardado = localStorage.getItem('cliente_nombre');
+            const textoNav = document.getElementById('texto-usuario-nav');
+            const flecha = document.getElementById('flecha-dropdown');
+            
+            if (nombreGuardado) {
+                textoNav.innerText = "¡Hola, " + nombreGuardado + "!";
+                flecha.style.display = "inline-block";
+            } else {
+                textoNav.innerText = "Carrito";
+                flecha.style.display = "none";
+            }
+        }
+
+        function entrarComoInvitado() {
+            document.getElementById('modal-bienvenida').style.display = 'none';
+            actualizarNombreNav(); 
+        }
+
+        // Registro local simulado
+        document.getElementById('form-registro-modal').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            const nombreUsuario = document.getElementById('modal-nombre').value;
+            const telefonoUsuario = document.getElementById('modal-telefono').value;
+
+            localStorage.setItem('cliente_nombre', nombreUsuario);
+            localStorage.setItem('cliente_telefono', telefonoUsuario);
+
+            alert("¡Registro exitoso! Bienvenido, " + nombreUsuario);
+            document.getElementById('modal-bienvenida').style.display = 'none';
+            actualizarNombreNav();
+        });
+
+        // Login local simulado
+        document.getElementById('form-login-modal').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const telefonoIngresado = document.getElementById('login-telefono').value;
+            const telefonoGuardado = localStorage.getItem('cliente_telefono');
+            const nombreGuardado = localStorage.getItem('cliente_nombre');
+
+            if (nombreGuardado && telefonoIngresado === telefonoGuardado) {
+                alert("¡Bienvenido de nuevo, " + nombreGuardado + "!");
+                document.getElementById('modal-bienvenida').style.display = 'none';
+                actualizarNombreNav();
+            } else {
+                alert("Cuenta no detectada en este dispositivo. Te iniciaremos sesión de prueba.");
+                localStorage.setItem('cliente_nombre', 'Cliente');
+                localStorage.setItem('cliente_telefono', telefonoIngresado);
+                document.getElementById('modal-bienvenida').style.display = 'none';
+                actualizarNombreNav();
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', function() {
+            const nombreGuardado = localStorage.getItem('cliente_nombre');
+            if (nombreGuardado) {
+                document.getElementById('modal-bienvenida').style.display = 'none';
+                actualizarNombreNav();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiénes Somos | Aguas con tu Sed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        /* --- VARIABLES DE COLOR (Misma paleta original) --- */
+        :root {
+            --rojo-sandia: #FF4A5A;
+            --amarillo-mango: #FFB020;
+            --rosa-fresa: #FF7597;
+            --verde-menta: #2ECC71;
+            --blanco-crema: #FFFDF9;
+            --texto-oscuro: #2C2C2C;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--blanco-crema);
+            color: var(--texto-oscuro);
+            line-height: 1.6;
+        }
+
+        /* --- BARRA DE NAVEGACIÓN --- */
+        header {
+            background-color: #ffffff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--rojo-sandia);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--amarillo-mango);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--texto-oscuro);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: var(--rojo-sandia);
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .contenedor-nosotros {
+            max-width: 1000px;
+            margin: 120px auto 60px;
+            padding: 0 20px;
+        }
+
+        .titulo-principal {
+            text-align: center;
+            font-size: 2.8rem;
+            color: var(--texto-oscuro);
+            margin-bottom: 40px;
+        }
+
+        .titulo-principal span {
+            color: var(--rojo-sandia);
+        }
+
+        /* --- SECCIÓN RESEÑA HISTÓRICA --- */
+        .historia-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            margin-bottom: 50px;
+            border-left: 5px solid var(--rojo-sandia);
+        }
+
+        .historia-box h2 {
+            font-size: 1.8rem;
+            color: var(--rojo-sandia);
+            margin-bottom: 15px;
+        }
+
+        .historia-box p {
+            font-size: 1.1rem;
+            color: #4a4a4a;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* --- SECCIÓN MISIÓN Y VISIÓN (GRID) --- */
+        .grid-mision-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card-mv {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .card-mv:hover {
+            transform: translateY(-5px);
+        }
+
+        .icono-mv {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .card-mv h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--texto-oscuro);
+        }
+
+        .card-mv p {
+            color: #666;
+            font-size: 1rem;
+            text-align: justify;
+        }
+
+        .btn-regresar {
+            display: inline-block;
+            margin-top: 40px;
+            background-color: var(--texto-oscuro);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn-regresar:hover {
+            background-color: var(--rojo-sandia);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--texto-oscuro);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 80px;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            .nav-menu { display: none; } 
+            .contenedor-nosotros { margin-top: 90px; }
+            .titulo-principal { font-size: 2.2rem; }
+            .historia-box { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="navbar">
+            <a href="index.html" class="logo">Aguas con tu <span>Sed</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html#inicio">Inicio</a></li>
+                <li><a href="index.html#sabores">Sabores</a></li>
+                <li><a href="index.html#beneficios">Beneficios</a></li>
+                <li><a href="index.html#ubicanos">Ubícanos</a></li>
+                <li><a href="index.html#contacto">Contáctanos</a></li>
+                <li><a href="nosotros.html" class="active">Quiénes Somos</a></li>
+                <li><a href="carrito.html" class="btn-carrito-nav"><i class="fa-solid fa-basket-shopping"></i> Carrito</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="contenedor-nosotros">
+        
+        <h1 class="titulo-principal">Nuestra <span>Historia</span></h1>
+
+        <!-- SECCIÓN QUIÉNES SOMOS -->
+        <section class="historia-box">
+            <h2>De la banqueta al vaso: Un sueño hecho de fruta real</h2>
+            <p><strong>Aguas con tu Sed</strong> no nació en una oficina, ni en una gran cocina industrial; 
+            nació en la calle, bajo el calor del sol y con una idea fija en la mente y la cabeza bien fria: la gente merece tomar algo mejor.</p>
+            </p>Nosotros decidimos apostar por la honestidad. Nos propusimos rescatar el verdadero valor del tiempo:
+            seguimos conservando lo tradicional desde picar la fruta, desinfectar meticulosamente
+            cada hoja de menta y exprimir los limones uno a uno para asegurar que cada trago supiera
+            exactamente a lo que debe saber: a la naturaleza en su estado más puro.</p>
+            </p>Aguas con tu Sed es la prueba viviente de que ninguna idea es demasiado pequeña
+            ni ningún origen demasiado humilde cuando estás dispuesto a poner el alma en cada detalle.
+            No solo servimos las aguas frescas más reales y refrescantes de la ciudad;
+            somos el recordatorio diario de que los proyectos más grandes y hermosos siempre empiezan
+            con el coraje de dar el primer paso, justo donde estás y con lo que tienes.</p>
+        </section>
+
+        <!-- SECCIÓN MISIÓN Y VISIÓN -->
+        <div class="grid-mision-vision">
+            
+            <div class="card-mv">
+                <span class="icono-mv">🎯</span>
+                <h3>Misión</h3>
+                <p>Ofrecer una experiencia de frescura auténtica y saludable a través de aguas frescas artesanales,
+                    elaboradas con pulpa de fruta 100% natural y procesos honestos. Nos dedicamos a combatir
+                    la sed de nuestros clientes sin recurrir a jarabes ni polvos artificiales, devolviendo a las mesas
+                    el verdadero sabor del mercado mexicano con la higiene y calidad que su familia merece.</p>
+            </div>
+
+            <div class="card-mv">
+                <span class="icono-mv">👁️‍🗨️</span>
+                <h3>Visión</h3>
+                <p>Convertirnos para el año 2030 en la marca referente de aguas frescas naturales y de autor en nuestra región,
+                    expandiendo nuestras sucursales sin perder la esencia artesanal, el proceso hecho en casa y el toque humano
+                    que nos vio nacer en las calles. Queremos demostrar que lo natural, lo estético y lo tradicional
+                    pueden fusionarse en un producto excepcional.</p>
+            </div>
+
+        </div>
+
+        <div style="text-align: center;">
+            <a href="index.html" class="btn-regresar"><i class="fas fa-arrow-left"></i> Volver al Inicio</a>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="copyright">
+            <p>© 2026 Aguas con tu Sed - Sabores de Mercado e Innovación. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

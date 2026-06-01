@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Carta | Aguas con tu Sed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        /* --- VARIABLES DE COLOR --- */
+        :root {
+            --rojo-sandia: #FF4A5A;
+            --amarillo-mango: #FFB020;
+            --rosa-fresa: #FF7597;
+            --blanco-crema: #FFFDF9;
+            --texto-oscuro: #2C2C2C;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--blanco-crema);
+            color: var(--texto-oscuro);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* --- BARRA DE NAVEGACIÓN --- */
+        header {
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--rojo-sandia);
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .logo span { color: var(--amarillo-mango); }
+
+        .btn-regresar {
+            text-decoration: none;
+            color: var(--texto-oscuro);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+
+        .btn-regresar:hover { color: var(--rojo-sandia); }
+
+        /* Estilo para el botón de carrito en el header */
+        .btn-carrito-nav {
+            text-decoration: none;
+            color: var(--rojo-sandia) !important;
+            background-color: #fff0f2;
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            list-style: none;
+        }
+        .btn-carrito-nav:hover {
+            background-color: var(--rojo-sandia);
+            color: white !important;
+        }
+
+        /* --- CONTENIDO DE LA CARTA --- */
+        .carta-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .encabezado-carta {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .encabezado-carta h1 {
+            font-size: 3rem;
+            color: var(--texto-oscuro);
+            margin-bottom: 10px;
+        }
+
+        .encabezado-carta p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* --- SECCIONES DEL MENÚ --- */
+        .categoria-titulo {
+            font-size: 1.8rem;
+            color: var(--rojo-sandia);
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--amarillo-mango);
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .item-carta {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .item-carta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 74, 90, 0.08);
+            border-left-color: var(--rojo-sandia);
+        }
+
+        .item-detalles {
+            flex: 1;
+            padding-right: 20px;
+        }
+
+        .item-detalles h3 {
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+            color: var(--texto-oscuro);
+        }
+
+        .item-detalles p {
+            color: #777;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        /* --- CONTENEDOR DE PRECIOS POR BOTELLA ANIMADO --- */
+        .precios-botellas {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .opcion-botella {
+            background-color: #fff0f2;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--texto-oscuro);
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-width: 90px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        /* Estructuras para el desplazamiento del texto */
+        .opcion-botella .info-precio,
+        .opcion-botella .accion-carrito {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            width: 100%;
+        }
+
+        .opcion-botella .accion-carrito {
+            position: absolute;
+            opacity: 0;
+            transform: translateY(20px);
+            color: white;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .opcion-botella span {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--rojo-sandia);
+        }
+
+        /* --- EFECTO HOVER: AL PASAR EL MOUSE POR EL PRECIO --- */
+        .opcion-botella:hover {
+            background-color: var(--rojo-sandia);
+            box-shadow: 0 4px 12px rgba(255, 74, 90, 0.25);
+        }
+
+        .opcion-botella:hover .info-precio {
+            opacity: 0;
+            transform: translateY(-25px);
+        }
+
+        .opcion-botella:hover .accion-carrito {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- NOTA DE CALIDAD --- */
+        .nota-calidad {
+            background-color: #fffaf0;
+            border-left: 4px solid var(--amarillo-mango);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-style: italic;
+            margin: 40px 0;
+            color: #555;
+        }
+
+        /* --- FOOTER REDES --- */
+        footer {
+            background-color: var(--texto-oscuro);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            border-radius: 15px;
+        }
+
+        .redes-sociales {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .red-item {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .red-item.wa:hover { color: #25D366; }
+        .red-item.ig:hover { color: #E1306C; }
+        .red-item.fb:hover { color: #1877F2; }
+
+        /* Responsive para pantallas chicas */
+        @media (max-width: 768px) {
+            .item-carta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .precios-botellas {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+  <header>
+        <a href="index.html" class="logo">Aguas con tu <span>Sed</span></a>
+        
+        <div class="nav-botones" style="display: flex; align-items: center; gap: 20px;">
+            <a href="index.html" class="btn-regresar" style="text-decoration: none; color: var(--texto-oscuro); font-weight: 600; display: flex; align-items: center; gap: 8px; transition: color 0.3s;">
+                <i class="fa-solid fa-house"></i> Volver al Inicio
+            </a>
+            
+            <a href="carrito.html" class="btn-carrito-nav" style="text-decoration: none; color: var(--texto-oscuro); font-weight: 600; display: flex; align-items: center; gap: 8px; transition: color 0.3s; position: relative;">
+                <i class="fa-solid fa-basket-shopping"></i> Carrito
+                <span id="contador-carrito" style="
+                    display: none;
+                    position: absolute;
+                    top: -8px;
+                    right: -12px;
+                    background-color: var(--rojo-sandia);
+                    color: white;
+                    font-size: 0.75rem;
+                    font-weight: bold;
+                    border-radius: 50%;
+                    padding: 2px 6px;
+                    min-width: 18px;
+                    text-align: center;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                ">0</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="carta-container">
+        
+        <div class="encabezado-carta">
+            <h1>Nuestra Carta</h1>
+            <p>Refrescantes, 100% naturales y preparadas con fruta real.</p>
+        </div>
+
+        <h2 class="categoria-titulo">🍓 Clásicas de Fruta</h2>
+        <div class="menu-grid">
+            
+            <div class="item-carta">
+                <div class="item-detalles">
+                    <h3>Limón con Menta</h3>
+                    <p>Limones verdes frescos, hojas de menta del huerto, agua purificada y azúcar.</p>
+                </div>
+                <div class="precios-botellas">
+                    <div class="opcion-botella">
+                        <div class="info-precio">250ml <span>$15</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">500ml <span>$28</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">1 Litro <span>$45</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-carta">
+                <div class="item-detalles">
+                    <h3>Fresa Intensa</h3>
+                    <p>Fresas maduras seleccionadas, agua purificada y el toque perfecto de dulzura.</p>
+                </div>
+                <div class="precios-botellas">
+                    <div class="opcion-botella">
+                        <div class="info-precio">250ml <span>$18</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">500ml <span>$32</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">1 Litro <span>$50</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-carta">
+                <div class="item-detalles">
+                    <h3>Tamarindo Artesanal</h3>
+                    <p>Pulpa de tamarindo natural hervida en casa, agua purificada y azúcar.</p>
+                </div>
+                <div class="precios-botellas">
+                    <div class="opcion-botella">
+                        <div class="info-precio">250ml <span>$15</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">500ml <span>$28</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">1 Litro <span>$45</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-carta">
+                <div class="item-detalles">
+                    <h3>Mango de Temporada</h3>
+                    <p>Pulpa pura de mango de temporada, agua purificada y una pizca de azúcar.</p>
+                </div>
+                <div class="precios-botellas">
+                    <div class="opcion-botella">
+                        <div class="info-precio">250ml <span>$18</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">500ml <span>$32</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">1 Litro <span>$50</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-carta">
+                <div class="item-detalles">
+                    <h3>Sandía Refrescante</h3>
+                    <p>Sandía roja jugosa picada a mano, agua purificada e hielo súper helado.</p>
+                </div>
+                <div class="precios-botellas">
+                    <div class="opcion-botella">
+                        <div class="info-precio">250ml <span>$15</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">500ml <span>$28</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">1 Litro <span>$45</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <h2 class="categoria-titulo">🥛 Especialidades Cremosas</h2>
+        <div class="menu-grid">
+            
+            <div class="item-carta">
+                <div class="item-detalles">
+                    <h3>Horchata Tradicional</h3>
+                    <p>Arroz remojado pacientemente, rajitas de canela, leche evaporada y vainilla.</p>
+                </div>
+                <div class="precios-botellas">
+                    <div class="opcion-botella">
+                        <div class="info-precio">250ml <span>$18</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">500ml <span>$32</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">1 Litro <span>$50</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-carta">
+                <div class="item-detalles">
+                    <h3>Horchata de Coco</h3>
+                    <p>Base clásica de arroz, agua de coco natural y trocitos de pulpa de coco tierna.</p>
+                </div>
+                <div class="precios-botellas">
+                    <div class="opcion-botella">
+                        <div class="info-precio">250ml <span>$20</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">500ml <span>$35</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">1 Litro <span>$55</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-carta">
+                <div class="item-detalles">
+                    <h3>Cebada de la Casa</h3>
+                    <p>Granos de cebada tostados y molidos, leche condensada, canela y un toque secreto.</p>
+                </div>
+                <div class="precios-botellas">
+                    <div class="opcion-botella">
+                        <div class="info-precio">250ml <span>$18</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">500ml <span>$32</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">1 Litro <span>$50</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <h2 class="categoria-titulo">🌿 Combinaciones de Autor y Bienestar</h2>
+        <div class="menu-grid">
+            
+            <div class="item-carta">
+                <div class="item-detalles">
+                    <h3>Limón con Chía</h3>
+                    <p>Jugo de limón natural, semillas de chía hidratadas, agua purificada y azúcar.</p>
+                </div>
+                <div class="precios-botellas">
+                    <div class="opcion-botella">
+                        <div class="info-precio">250ml <span>$16</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">500ml <span>$30</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">1 Litro <span>$48</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-carta">
+                <div class="item-detalles">
+                    <h3>Pepino con Hierbabuena</h3>
+                    <p>Pepino fresco con cáscara, hojas de hierbabuena, jugo de limón y agua purificada.</p>
+                </div>
+                <div class="precios-botellas">
+                    <div class="opcion-botella">
+                        <div class="info-precio">250ml <span>$16</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">500ml <span>$30</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">1 Litro <span>$48</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-carta">
+                <div class="item-detalles">
+                    <h3>Fresa con Albahaca</h3>
+                    <p>Fresas naturales machacadas, hojas de albahaca fresca, agua purificada y un toque dulce.</p>
+                </div>
+                <div class="precios-botellas">
+                    <div class="opcion-botella">
+                        <div class="info-precio">250ml <span>$18</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">500ml <span>$32</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">1 Litro <span>$50</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <h2 class="categoria-titulo">🥝 Toques Exóticos</h2>
+        <div class="menu-grid">
+            
+            <div class="item-carta">
+                <div class="item-detalles">
+                    <h3>Pitahaya Neón</h3>
+                    <p>Pulpa de fruta del dragón roja, gotas de jugo de lima, agua purificada y azúcar.</p>
+                </div>
+                <div class="precios-botellas">
+                    <div class="opcion-botella">
+                        <div class="info-precio">250ml <span>$22</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">500ml <span>$38</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">1 Litro <span>$60</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-carta">
+                <div class="item-detalles">
+                    <h3>Tuna Roja</h3>
+                    <p>Tunas rojas silvestres coladas, agua purificada y un toque muy sutil de azúcar.</p>
+                </div>
+                <div class="precios-botellas">
+                    <div class="opcion-botella">
+                        <div class="info-precio">250ml <span>$18</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">500ml <span>$32</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                    <div class="opcion-botella">
+                        <div class="info-precio">1 Litro <span>$50</span></div>
+                        <div class="accion-carrito"><i class="fa-solid fa-cart-plus"></i><br>Agregar</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="nota-calidad">
+            "Todas nuestras presentaciones se sirven en botellas herméticas de grado alimenticio para asegurar que la frescura y la temperatura helada se mantengan intactas desde nuestro vitrolero hasta tus manos."
+        </div>
+
+        <footer>
+            <div class="redes-sociales">
+                <a href="https://wa.me/526674XXXXXX" class="red-item wa" target="_blank">
+                    <i class="fab fa-whatsapp"></i> 6674xxxxxx
+                </a>
+                <a href="https://instagram.com/mageed.aguascontused" class="red-item ig" target="_blank">
+                    <i class="fab fa-instagram"></i> @mageed.aguascontused
+                </a>
+                <a href="https://facebook.com/mageed.aguascontused" class="red-item fb" target="_blank">
+                    <i class="fab fa-facebook-f"></i> @mageed.aguascontused
+                </a>
+            </div>
+        </footer>
+
+    </main>
+    <script>
+        // Función para contar los artículos del localStorage y actualizar la burbuja
+        function actualizarContadorNotificacion() {
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            const contadorElemento = document.getElementById('contador-carrito');
+            
+            if (carrito.length > 0) {
+                contadorElemento.innerText = carrito.length; // Inserta la cantidad de artículos
+                contadorElemento.style.display = 'block';     // Muestra la burbuja si hay elementos
+            } else {
+                contadorElemento.style.display = 'none';      // Oculta la burbuja si está vacío
+            }
+        }
+
+        // Configuración para los botones de las opciones de botellas
+        document.querySelectorAll('.opcion-botella').forEach(boton => {
+            boton.addEventListener('click', function() {
+                // Obtenemos el nombre del sabor
+                const contenedorItem = this.closest('.item-carta');
+                const nombreSabor = contenedorItem.querySelector('.item-detalles h3').innerText;
+                
+                // Separamos el tamaño y el precio
+                const textoPrecioOriginal = this.querySelector('.info-precio').innerText; 
+                const partes = textoPrecioOriginal.split('$');
+                const tamano = partes[0].trim();
+                const precio = parseInt(partes[1].trim());
+
+                // Creamos el objeto del producto
+                const producto = {
+                    sabor: nombreSabor,
+                    tamano: tamano,
+                    precio: precio
+                };
+
+                // Guardamos en LocalStorage
+                let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+                carrito.push(producto);
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+
+                // ¡ACTUALIZAMOS EL CONTADOR AL INSTANTE!
+                actualizarContadorNotificacion();
+
+                // Pequeña animación visual en el botón
+                const iconoCarrito = this.querySelector('.accion-carrito');
+                const textoOriginalHTML = iconoCarrito.innerHTML;
+                
+                iconoCarrito.innerHTML = '<i class="fa-solid fa-check"></i><br>¡Agregado!';
+                this.style.backgroundColor = '#2ECC71'; 
+                
+                setTimeout(() => {
+                    this.style.backgroundColor = '';
+                    iconoCarrito.innerHTML = textoOriginalHTML;
+                }, 1000);
+            });
+        });
+
+        // Ejecutar la función automáticamente en cuanto el cliente abre la carta
+        window.onload = actualizarContadorNotificacion;
+    </script>
+
+</body>
+</html>

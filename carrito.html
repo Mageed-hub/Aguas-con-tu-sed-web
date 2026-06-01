@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Carrito | Aguas con tu Sed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        /* --- VARIABLES DE COLOR --- */
+        :root {
+            --rojo-sandia: #FF4A5A;
+            --amarillo-mango: #FFB020;
+            --blanco-crema: #FFFDF9;
+            --texto-oscuro: #2C2C2C;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--blanco-crema);
+            color: var(--texto-oscuro);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* --- BARRA DE NAVEGACIÓN --- */
+        header {
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--rojo-sandia);
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .logo span { color: var(--amarillo-mango); }
+
+        /* Contenedor para agrupar los botones de navegación a la derecha */
+        .nav-botones {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn-regresar {
+            text-decoration: none;
+            color: var(--texto-oscuro);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+
+        .btn-regresar:hover { color: var(--rojo-sandia); }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .carrito-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* --- LISTA DE PRODUCTOS --- */
+        .productos-carrito {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .item-carrito-lista {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-info h3 {
+            font-size: 1.2rem;
+            color: var(--texto-oscuro);
+        }
+
+        .item-info p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .item-precio-eliminar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .item-precio-eliminar .precio {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--rojo-sandia);
+        }
+
+        .btn-eliminar {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+        }
+
+        .btn-eliminar:hover {
+            color: var(--rojo-sandia);
+        }
+
+        /* --- RESUMEN Y TOTALES --- */
+        .resumen-carrito {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .fila-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.4rem;
+            font-weight: bold;
+            border-top: 2px dashed #eee;
+            padding-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .btn-pedir {
+            background-color: #25D366; /* Verde WhatsApp */
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .btn-pedir:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        /* --- BOTÓN VACIAR CARRITO --- */
+        .btn-vaciar {
+            background-color: transparent;
+            color: #999;
+            border: 2px solid #eee;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 5px;
+        }
+
+        .btn-vaciar:hover {
+            background-color: #fff0f2;
+            color: var(--rojo-sandia);
+            border-color: var(--rojo-sandia);
+        }
+
+        .carrito-vacio {
+            text-align: center;
+            padding: 40px;
+            color: #777;
+        }
+
+        .carrito-vacio i {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+
+        /* Responsive para pantallas móviles */
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .nav-botones {
+                width: 100%;
+                justify-content: space-around;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">Aguas con tu <span>Sed</span></a>
+        
+        <div class="nav-botones">
+            <a href="index.html" class="btn-regresar">
+                <i class="fa-solid fa-house"></i> Ir al Inicio
+            </a>
+            <a href="carta.html" class="btn-regresar">
+                <i class="fa-solid fa-arrow-left"></i> Volver a la Carta
+            </a>
+        </div>
+    </header>
+
+    <main class="carrito-container">
+        <h1>Tu Carrito</h1>
+
+        <div id="contenedor-productos" class="productos-carrito"></div>
+
+        <div id="resumen" class="resumen-carrito" style="display: none;">
+            <div class="fila-total">
+                <span>Total:</span>
+                <span id="total-pago">$0</span>
+            </div>
+            
+            <a href="#" id="btn-enviar-whatsapp" class="btn-pedir" target="_blank">
+                <i class="fab fa-whatsapp"></i> Confirmar Pedido por WhatsApp
+            </a>
+
+            <button id="btn-vaciar-todo" class="btn-vaciar" onclick="vaciarCarritoCompleto()">
+                <i class="fa-solid fa-trash-can"></i> Vaciar Carrito
+            </button>
+        </div>
+    </main>
+
+    <script>
+        // Función para cargar y mostrar los productos del localStorage
+        function cargarCarrito() {
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            const contenedor = document.getElementById('contenedor-productos');
+            const resumenBox = document.getElementById('resumen');
+            const totalPagoTxt = document.getElementById('total-pago');
+            
+            contenedor.innerHTML = '';
+            
+            if(carrito.length === 0) {
+                contenedor.innerHTML = `
+                    <div class="carrito-vacio">
+                        <i class="fa-solid fa-basket-shopping"></i>
+                        <p>Tu carrito está vacío. ¡Ve a la carta y añade tus aguas favoritas!</p>
+                    </div>`;
+                resumenBox.style.display = 'none';
+                return;
+            }
+
+            resumenBox.style.display = 'flex';
+            let total = 0;
+            let textoWhatsApp = "¡Hola! Me gustaría hacer el siguiente pedido de Aguas con tu Sed:\n\n";
+
+            carrito.forEach((item, index) => {
+                total += item.precio;
+                textoWhatsApp += `• ${item.sabor} (${item.tamano}) - $${item.precio}\n`;
+
+                const card = document.createElement('div');
+                card.className = 'item-carrito-lista';
+                card.innerHTML = `
+                    <div class="item-info">
+                        <h3>${item.sabor}</h3>
+                        <p>Tamaño: ${item.tamano}</p>
+                    </div>
+                    <div class="item-precio-eliminar">
+                        <span class="precio">$${item.precio}</span>
+                        <button class="btn-eliminar" onclick="eliminarDelCarrito(${index})">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                `;
+                contenedor.appendChild(card);
+            });
+
+            totalPagoTxt.innerText = `$${total}`;
+            textoWhatsApp += `\n*Total a pagar: $${total}*`;
+            
+            // Reemplaza el número de abajo (526674XXXXXX) por tu número real de WhatsApp con código de país
+            document.getElementById('btn-enviar-whatsapp').href = `https://wa.me/526674XXXXXX?text=${encodeURIComponent(textoWhatsApp)}`;
+        }
+
+        // Función para eliminar un producto individualmente
+        function eliminarDelCarrito(index) {
+            let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            carrito.splice(index, 1);
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            cargarCarrito();
+        }
+
+        // Función para eliminar absolutamente todo de golpe
+        function vaciarCarritoCompleto() {
+            if (confirm("¿Estás seguro de que deseas quitar todos los productos del carrito?")) {
+                localStorage.removeItem('carrito');
+                cargarCarrito();
+            }
+        }
+
+        // Ejecutar al abrir la página
+        window.onload = cargarCarrito;
+    </script>
+</body>
+</html>
