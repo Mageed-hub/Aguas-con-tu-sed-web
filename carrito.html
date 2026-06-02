@@ -13,6 +13,7 @@
             --amarillo-mango: #FFB020;
             --blanco-crema: #FFFDF9;
             --texto-oscuro: #2C2C2C;
+            --verde-wa: #25D366;
         }
 
         * {
@@ -53,7 +54,6 @@
 
         .logo span { color: var(--amarillo-mango); }
 
-        /* Contenedor para agrupar los botones de navegación a la derecha */
         .nav-botones {
             display: flex;
             align-items: center;
@@ -134,9 +134,7 @@
             transition: color 0.2s;
         }
 
-        .btn-eliminar:hover {
-            color: var(--rojo-sandia);
-        }
+        .btn-eliminar:hover { color: var(--rojo-sandia); }
 
         /* --- RESUMEN Y TOTALES --- */
         .resumen-carrito {
@@ -147,6 +145,35 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+        }
+
+        /* --- SECCIÓN SE SUGERENCIAS --- */
+        .seccion-detalles {
+            background: #fdfdfd;
+            border: 1px solid #eee;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .seccion-detalles h3 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: var(--texto-oscuro);
+        }
+
+        .input-detalles {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            outline: none;
+        }
+
+        .input-detalles:focus {
+            border-color: var(--amarillo-mango);
         }
 
         .fila-total {
@@ -160,7 +187,7 @@
         }
 
         .btn-pedir {
-            background-color: #25D366; /* Verde WhatsApp */
+            background-color: var(--verde-wa);
             color: white;
             text-decoration: none;
             text-align: center;
@@ -173,6 +200,9 @@
             align-items: center;
             gap: 10px;
             box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+            border: none;
+            cursor: pointer;
+            width: 100%;
             transition: all 0.2s ease;
         }
 
@@ -181,7 +211,6 @@
             box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
         }
 
-        /* --- BOTÓN VACIAR CARRITO --- */
         .btn-vaciar {
             background-color: transparent;
             color: #999;
@@ -218,7 +247,76 @@
             margin-bottom: 15px;
         }
 
-        /* Responsive para pantallas móviles */
+        /* --- ESTILOS DEL TICKET FINAL --- */
+        .ticket-box {
+            background: #ffffff;
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-top: 8px solid var(--amarillo-mango);
+        }
+
+        .ticket-header {
+            text-align: center;
+            border-bottom: 2px dashed #ddd;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .ticket-header i {
+            font-size: 3rem;
+            color: var(--verde-wa);
+            margin-bottom: 10px;
+        }
+
+        .ticket-info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .ticket-info-row span:first-child {
+            color: #666;
+            font-weight: 600;
+        }
+
+        .ticket-productos {
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+            margin: 15px 0;
+        }
+
+        .ticket-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        .ticket-sugerencia {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: #555;
+            border-left: 3px solid var(--rojo-sandia);
+            margin-top: 15px;
+        }
+
+        .ticket-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--rojo-sandia);
+            margin-top: 15px;
+        }
+
+        /* Responsive */
         @media (max-width: 600px) {
             header {
                 flex-direction: column;
@@ -249,23 +347,69 @@
     </header>
 
     <main class="carrito-container">
-        <h1>Tu Carrito</h1>
+        <div id="seccion-carrito-principal">
+            <h1>Tu Carrito</h1>
 
-        <div id="contenedor-productos" class="productos-carrito"></div>
+            <div id="contenedor-productos" class="productos-carrito"></div>
 
-        <div id="resumen" class="resumen-carrito" style="display: none;">
-            <div class="fila-total">
-                <span>Total:</span>
-                <span id="total-pago">$0</span>
+            <div id="resumen" class="resumen-carrito" style="display: none;">
+                
+                <div class="seccion-detalles">
+                    <h3><i class="fa-solid fa-user"></i> Datos del Pedido</h3>
+                    <input type="text" id="nombre-usuario" class="input-detalles" placeholder="Tu nombre completo (Obligatorio)">
+                    
+                    <h3><i class="fa-solid fa-comment-dots"></i> ¿Alguna sugerencia o nota?</h3>
+                    <textarea id="sugerencia-pedido" class="input-detalles" rows="3" placeholder="Ej: Sin hielo, azúcar mascabado, enviar cambio de $200..."></textarea>
+                </div>
+
+                <div class="fila-total">
+                    <span>Total:</span>
+                    <span id="total-pago">$0</span>
+                </div>
+                
+                <button onclick="procesarPedido()" class="btn-pedir">
+                    <i class="fab fa-whatsapp"></i> Confirmar Pedido por WhatsApp
+                </button>
+
+                <button id="btn-vaciar-todo" class="btn-vaciar" onclick="vaciarCarritoCompleto()">
+                    <i class="fa-solid fa-trash-can"></i> Vaciar Carrito
+                </button>
             </div>
-            
-            <a href="#" id="btn-enviar-whatsapp" class="btn-pedir" target="_blank">
-                <i class="fab fa-whatsapp"></i> Confirmar Pedido por WhatsApp
-            </a>
+        </div>
 
-            <button id="btn-vaciar-todo" class="btn-vaciar" onclick="vaciarCarritoCompleto()">
-                <i class="fa-solid fa-trash-can"></i> Vaciar Carrito
-            </button>
+        <div id="seccion-ticket" style="display: none;">
+            <div class="ticket-box">
+                <div class="ticket-header">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <h2>¡Pedido Confirmado!</h2>
+                    <p>Tu orden ha sido enviada a WhatsApp</p>
+                </div>
+
+                <div class="ticket-info-row">
+                    <span>Folio de Compra:</span>
+                    <span id="tk-folio" style="font-weight: bold; color: var(--rojo-sandia);"></span>
+                </div>
+                <div class="ticket-info-row">
+                    <span>Cliente:</span>
+                    <span id="tk-nombre"></span>
+                </div>
+                <div class="ticket-info-row">
+                    <span>Fecha y Hora:</span>
+                    <span id="tk-fecha"></span>
+                </div>
+
+                <div class="ticket-productos" id="tk-desgloce">
+                    </div>
+
+                <div id="tk-sugerencia-box" class="ticket-sugerencia" style="display: none;">
+                    <strong>Sugerencia:</strong> <span id="tk-sugerencia-texto"></span>
+                </div>
+
+                <div class="ticket-total">
+                    <span>Total Pagado:</span>
+                    <span id="tk-total"></span>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -291,11 +435,9 @@
 
             resumenBox.style.display = 'flex';
             let total = 0;
-            let textoWhatsApp = "¡Hola! Me gustaría hacer el siguiente pedido de Aguas con tu Sed:\n\n";
 
             carrito.forEach((item, index) => {
                 total += item.precio;
-                textoWhatsApp += `• ${item.sabor} (${item.tamano}) - $${item.precio}\n`;
 
                 const card = document.createElement('div');
                 card.className = 'item-carrito-lista';
@@ -315,10 +457,85 @@
             });
 
             totalPagoTxt.innerText = `$${total}`;
-            textoWhatsApp += `\n*Total a pagar: $${total}*`;
+        }
+
+        // Función para procesar la validación, enviar a WhatsApp y mostrar el ticket
+        function procesarPedido() {
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            const nombre = document.getElementById('nombre-usuario').value.trim();
+            const sugerencia = document.getElementById('sugerencia-pedido').value.trim();
+
+            if (nombre === "") {
+                alert("Por favor, ingresa tu nombre para poder procesar el pedido.");
+                document.getElementById('nombre-usuario').focus();
+                return;
+            }
+
+            // 1. Generar Folio aleatorio único
+            const numeroAleatorio = Math.floor(1000 + Math.random() * 9000);
+            const folio = `FOL-2026-${numeroAleatorio}`;
+
+            // 2. Obtener fecha y hora actual
+            const ahora = new Date();
+            const fechaFormateada = ahora.toLocaleString('es-MX', { hour12: true });
+
+            // 3. Calcular Total y armar texto de WhatsApp
+            let total = 0;
+            let textoWhatsApp = `¡Hola! Me gustaría hacer el siguiente pedido en *Aguas con tu Sed*:\n\n`;
+            textoWhatsApp += `*Folio:* ${folio}\n`;
+            textoWhatsApp += `*Cliente:* ${nombre}\n`;
+            textoWhatsApp += `-------------------------------------------\n`;
+
+            carrito.forEach((item) => {
+                total += item.precio;
+                textoWhatsApp += `• ${item.sabor} (${item.tamano}) - $${item.precio}\n`;
+            });
+
+            textoWhatsApp += `-------------------------------------------\n`;
             
-            // Reemplaza el número de abajo (526674XXXXXX) por tu número real de WhatsApp con código de país
-            document.getElementById('btn-enviar-whatsapp').href = `https://wa.me/526674XXXXXX?text=${encodeURIComponent(textoWhatsApp)}`;
+            if(sugerencia !== "") {
+                textoWhatsApp += `*Sugerencia/Nota:* ${sugerencia}\n\n`;
+            }
+
+            textoWhatsApp += `*Total a pagar: $${total}*`;
+
+            // 4. Mostrar e imprimir datos en la sección del Ticket final
+            document.getElementById('tk-folio').innerText = folio;
+            document.getElementById('tk-nombre').innerText = nombre;
+            document.getElementById('tk-fecha').innerText = fechaFormateada;
+            document.getElementById('tk-total').innerText = `$${total}`;
+
+            // Desglose de productos en el ticket
+            const desgloceContenedor = document.getElementById('tk-desgloce');
+            desgloceContenedor.innerHTML = '';
+            carrito.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'ticket-item';
+                el.innerHTML = `<span>${item.sabor} (${item.tamano})</span> <span>$${item.precio}</span>`;
+                desgloceContenedor.appendChild(el);
+            });
+
+            // Manejar la sugerencia en el ticket
+            if(sugerencia !== "") {
+                document.getElementById('tk-sugerencia-texto').innerText = sugerencia;
+                document.getElementById('tk-sugerencia-box').style.display = 'block';
+            } else {
+                document.getElementById('tk-sugerencia-box').style.display = 'none';
+            }
+
+            // 5. Intercambiar pantallas de la interfaz
+            document.getElementById('seccion-carrito-principal').style.display = 'none';
+            document.getElementById('seccion-ticket').style.display = 'block';
+
+            // 6. Limpiar el Carrito de las compras guardadas
+            localStorage.removeItem('carrito');
+
+            // 7. Reemplaza el número de abajo (526674XXXXXX) por tu número real de WhatsApp con código de país
+            const numeroTelefono = "526674XXXXXX"; 
+            const urlWhatsApp = `https://wa.me/${numeroTelefono}?text=${encodeURIComponent(textoWhatsApp)}`;
+            
+            // Abrir WhatsApp en una pestaña nueva automáticamente
+            window.open(urlWhatsApp, '_blank');
         }
 
         // Función para eliminar un producto individualmente
